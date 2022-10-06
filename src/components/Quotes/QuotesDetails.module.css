@@ -1,0 +1,67 @@
+.fgr{
+text-align: center;
+}
+
+
+.details{
+    background-color: rgb(36, 3, 66);
+    height: 20rem;
+    border-radius: 10px;
+    display: flex;
+    color:white;
+    align-items: center;
+    justify-content: space-between;
+    padding:3rem 2rem;
+}
+
+.details p{
+    color:rgb(182, 229, 214);
+    margin-top: 10rem;
+    margin-bottom: 0;
+    font-size: 1.5rem;
+    font-family: Italic;
+}
+
+.btn button{
+    background-color: inherit;
+    color: rgb(4, 59, 42);
+    border-radius: 5px;
+    padding: 7px 30px;
+    border: none;
+    cursor: pointer;
+    margin-top: 2rem;
+}
+
+.btn button:hover{
+    background-color: rgb(5, 48, 5);
+    color:white
+}
+
+.btn2{
+    background-color: rgb(25, 135, 111);
+    color: white;
+    border-radius: 5px;
+    padding: 7px 30px;
+    border: none;
+    cursor: pointer;
+    margin: 1.2rem;
+}
+
+.btn2:hover{
+    background-color: rgb(5, 48, 5);
+}
+
+textarea{
+    background-color: rgb(202, 143, 153);
+    height: 10rem;
+}
+
+textarea:focus{
+    background-color: rgb(159, 232, 208);
+}
+label{
+    font-size: 1.8rem;
+    font: bold;
+    color: black;
+    margin-bottom: 2rem;
+}

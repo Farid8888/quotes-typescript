@@ -1,0 +1,32 @@
+.nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(60, 146, 131);
+    padding: 4px 8rem;
+}
+.nav h4{
+    color:aliceblue;
+    margin: 0;
+}
+.links{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style: none;
+    justify-content: space-between;
+    width: 250px;
+}
+.links li{
+    font-size: 22px;
+}
+
+.links a{
+    text-decoration: none;
+    color: rgb(194, 198, 202);
+}
+
+a.active{
+    color: white;
+}

@@ -1,0 +1,77 @@
+.cardQuote{
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 1px 2px 8px gray;
+    padding: 10px;
+}
+
+
+.quote{
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+.inp{
+    display: flex;
+    flex-direction: column;
+    margin:7px 0;
+}
+
+.inp label{
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.inp input{
+    background-color: rgb(218, 218, 218);
+    border: 1px solid rgba(128, 128, 128, 0.308);
+    border-radius: 3px;
+    padding: 6px;
+
+}
+
+.inp input:focus{
+    background-color: rgba(33, 129, 136, 0.237);
+    border: 2px solid rgb(33 129 136);
+    outline: none;
+}
+
+.inp textarea{
+    background-color: rgb(218, 218, 218);
+    border: 1px solid rgba(128, 128, 128, 0.308);
+    border-radius: 3px;
+    padding: 6px;
+
+}
+
+.inp textarea:focus{
+    background-color: rgba(33, 129, 136, 0.237);
+    border: 2px solid rgb(33 129 136);
+    outline: none;
+}
+
+.btn{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn button{
+    background-color: rgb(33 129 136);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 3px;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.btn button:hover,
+.btn button:active{
+    background-color: rgb(9, 60, 64);
+}
+
+.toast{
+    color: white;
+    background-color: red;
+}
