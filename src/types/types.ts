@@ -12,5 +12,6 @@ export type Items ={
 
 export type Comment ={
     comment:string,
-    id?:string
+    id?:string,
+    ID?:string
 }

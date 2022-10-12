@@ -1,10 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import QuotesItem from './QuotesItem'
-import {useAppDispatch} from '../hooks/hooks'
 import Card from '../UI/Card'
 import classes from './Quotes.module.css'
 import {Items} from '../../types/types'
-import {sortingQuotes} from '../../store/reducer'
 import {useLocation,useNavigate} from 'react-router'
 
 
@@ -14,17 +12,22 @@ type Q={
 
 const Quotes:React.FC<Q> = (props)=>{
     const [sort,setSort] = useState<boolean>(false)
+    const [quotes,setQuotes] = useState(props.quotes)
     const location =useLocation()
     const navigate=useNavigate()
-    console.log(location)
-    const dispatch = useAppDispatch()
     const changeSort =()=>{
-        dispatch(sortingQuotes())
+    const items = quotes.map((item:Items,i:number)=>{
+        return {...item,index:i}
+    })
+    items.sort((a:any,b:any)=>{
+        return b.index - a.index
+    })
+    console.log(items,'dsdsdsdsd')
+    setQuotes(items)
         setSort(prevst=>{
             return !prevst
         })
     }
-
     useEffect(()=>{
         if(sort){
             navigate(location.pathname + '?sort=asc')
@@ -39,7 +42,7 @@ const Quotes:React.FC<Q> = (props)=>{
             {!sort ? 'Sort Acsending' : 'Sort Descsending'}
         </button>
         </div>
-        {props.quotes.map(quote=>{
+        {quotes.map(quote=>{
             return <QuotesItem key={quote.id} text={quote.text} author={quote.author} id={quote.id}/> 
   
         })}

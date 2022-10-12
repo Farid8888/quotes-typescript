@@ -1,27 +1,33 @@
 import React,{useEffect} from 'react'
-import {useAppDispatch,useAppSelector} from '../hooks/hooks'
-import {settingComments} from '../../store/actions'
+import {setComments} from '../api/api'
+import useHook from '../../useHook/useHook'
 import CommentsItem from '../Comments/CommentsItem'
-
+import {Comment,Items} from '../../types/types'
 
 type ID ={
-    id?:string
+    id?:string,
 }
+ type HookState ={
+  data:Comment[],
+  status:any,
+  error:any,
+  sendRequest:(id?:string)=>void
+ }
 
 const Comments:React.FC<ID>=(props)=> {
-    const dispatch = useAppDispatch()
-    const comments = useAppSelector(state=>state.comments)
-    console.log(comments.comments)
-    const {id} =props
+  const {data,status,sendRequest}:HookState= useHook(setComments)
+  const {id} =props
   useEffect(()=>{
-   dispatch(settingComments(id))
-  },[dispatch,id])
-
+    sendRequest(id)
+  },[sendRequest,id,status])
   return (
     <div>
-      {comments.comments.map(comment=>{
+      {data.length === 0 && status === 'SUCCESS' ? <p>Not comments added yet</p>: 
+      <div>
+      {data.map(comment=>{
         return <CommentsItem key={comment.id} comment={comment.comment}/>
       })}
+      </div>}
     </div>
   )
 }

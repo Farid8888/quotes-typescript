@@ -1,25 +1,28 @@
 import React,{useEffect} from 'react'
 import Quotes from '../Quotes/Quotes'
 import LoadingSpinner from '../UI/LoadingSpinner'
-import {useAppDispatch,useAppSelector} from '../hooks/hooks'
-import {fetchQuotes} from '../../store/actions'
+import useHook from '../../useHook/useHook'
+import {setQuotes} from '../api/api'
 
 
 export default function QuotesPage() {
-    const dispatch = useAppDispatch()
-    const quotes = useAppSelector((state)=>state.quotes)
-    console.log(quotes.items)
+    const {sendRequest,data,status,error} = useHook(setQuotes)
+    console.log(data)
     useEffect(()=>{
-        dispatch(fetchQuotes())
-    },[dispatch])
-    if(quotes.status === 'LOADING'){
+        sendRequest()
+        console.log('hookkkkkkkkkkkk')
+    },[sendRequest])
+    if(status === 'LOADING'){
         return <div style={{textAlign:'center',marginTop:'5rem'}}><LoadingSpinner/></div>
-    }else if(quotes.status === 'ERROR'){
-        return <div style={{marginTop:'5rem',textAlign:'center'}}>{quotes.error}</div>
+    }else if(status === 'ERROR'){
+        return <div style={{marginTop:'5rem',textAlign:'center'}}>{error}</div>
     }
   return (
+    <>
+    {data.length === 0 ? <div style={{textAlign:'center',marginTop:'10rem'}}>Not added yet</div>:
     <div>
-      <Quotes quotes={quotes.items}/>
-    </div>
+      <Quotes quotes={data}/>
+    </div>}
+    </>
   )
 }

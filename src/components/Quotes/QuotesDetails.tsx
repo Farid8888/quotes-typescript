@@ -1,7 +1,8 @@
-import React, { useState,useRef } from "react";
-import { useAppSelector,useAppDispatch } from "../hooks/hooks";
+import React, { useState,useRef, useEffect } from "react";
 import Card from "../UI/Card";
-import {sendComments} from '../../store/actions'
+import {addComments,setComments,setQuotes} from '../api/api'
+import {Comment} from '../../types/types'
+import useHook from '../../useHook/useHook'
 import classes from "./QuotesDetails.module.css";
 import Comments from "../Comments/Comments";
 import LoadingSpinner from "../UI/LoadingSpinner";
@@ -10,6 +11,7 @@ import M from 'materialize-css'
 type Item = {
   text: string;
   author: string;
+  id?:string
 };
 
 type Props = {
@@ -18,30 +20,32 @@ type Props = {
 };
 
 const QuotesDetails: React.FC<Props> = (props) => {
-  const quotes = useAppSelector((state) => state.quotes);
-  const comments = useAppSelector((state)=>state.comments)
-  const dispatch = useAppDispatch()
+  const {data:comment,sendRequest:addComm,status:comStatus} = useHook(addComments)
   const [com, setCom] = useState(false);
   const [load,setLoad] =useState(false)
   const commentRef = useRef<HTMLTextAreaElement>(null)
   const submitHandler =(event:React.FormEvent)=>{
    event.preventDefault()
    const obj ={
-    comment:commentRef.current!.value
+    comment:commentRef.current!.value,
+    ID:props.id,
+    id:comment.id
    }
    if(commentRef.current!.value.trim() === ''){
     return M.toast({html:'Please enter a value'})
    }else{
-    dispatch(sendComments(obj,props.id))
+    addComm(obj)
    }
   }
-  if (quotes.status === "LOADING") {
-    return (
-      <div style={{ marginTop: "10rem", textAlign: "center" }}>
-        <LoadingSpinner />
-      </div>
-    );
-  }
+  // if (comStatus === "LOADING") {
+  //   return (
+  //     <div style={{ marginTop: "10rem", textAlign: "center" }}>
+  //       <LoadingSpinner />
+  //     </div>
+  //   );
+  // }
+
+  
   return (
     <Card>
       <figure className={classes.fgr}>
@@ -65,7 +69,7 @@ const QuotesDetails: React.FC<Props> = (props) => {
               </button>
             )}
             {com && <form onSubmit={submitHandler}>
-                {comments.status === 'LOADING' && <div style={{}}><LoadingSpinner/></div>}
+                {comStatus === 'LOADING' && <div style={{}}><LoadingSpinner/></div>}
                 <label htmlFor="comment">Your Comment</label>
                 <textarea rows={7} id='comment' ref={commentRef}/>
                 <button
@@ -75,8 +79,7 @@ const QuotesDetails: React.FC<Props> = (props) => {
                 Add Comment
               </button>
                 </form>}
-            {comments.comments.length === 0 ? <p>Not comments added yet</p>
-            : <Comments id={props.id}/>}
+            <Comments id={props.id} />
           </div>}
         </div>
       </figure>

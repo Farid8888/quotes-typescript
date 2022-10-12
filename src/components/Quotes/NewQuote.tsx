@@ -1,9 +1,9 @@
 import React,{useRef,useReducer, useEffect, ChangeEvent} from 'react'
 import Card from '../UI/Card'
 import classes from './NewQuote.module.css'
-import {sendQuotes} from '../../store/actions'
+import {sendQuotes} from '../api/api'
 import {useNavigate} from 'react-router-dom'
-import {useAppDispatch} from '../hooks/hooks'
+import useHook from '../../useHook/useHook'
 import "materialize-css/dist/css/materialize.min.css";
 import M from 'materialize-css'
 
@@ -11,8 +11,7 @@ import M from 'materialize-css'
 
 const NewQuote=()=> {
  const navigate=useNavigate()   
- const dispatch = useAppDispatch() 
-
+ const {sendRequest,status} = useHook(sendQuotes)
 type State ={
     authorVal:{
         touched:boolean,
@@ -79,8 +78,7 @@ if(auhtVal.trim() === '' || textVal.trim() === ''){
    
 }
 else{
-    dispatch(sendQuotes(obj))
-    navigate('/quotes')
+    sendRequest(obj)
 }
 
 }
@@ -103,8 +101,10 @@ useEffect(()=>{
         dsth({type:'NOT VAL',payload:false})
         return toastAction()
     }
-
-},[auhtVal,atouched,textVal,ttouched,state.validation])
+    if(status === 'SUCCESS'){
+        navigate('/quotes')
+    }
+},[auhtVal,atouched,textVal,ttouched,state.validation,status,navigate])
 
 const onChangeInput =(event:ChangeEvent<HTMLInputElement>)=>{
  dsth({type:'TOUCH AUTHOR'})
