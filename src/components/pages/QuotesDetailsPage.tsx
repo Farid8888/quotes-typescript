@@ -4,7 +4,6 @@ import {useParams} from 'react-router-dom'
 import {quotesDetails} from '../../store/actions'
 import {useAppDispatch,useAppSelector} from '../hooks/hooks'
 
-
 export default function QuotesDetailsPage() {
     const params =useParams()
     const dispatch = useAppDispatch()
